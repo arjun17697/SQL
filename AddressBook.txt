@@ -68,9 +68,9 @@ UC10_NoOfContactPerType
 SELECT type, COUNT(id) FROM address_book GROUP BY type;
 
 UC11_AddContactIn_AllTypes
-
 INSERT INTO address_book (first_name, last_name, address_book_name, type, address, city, state, zip, phone_number, email) VALUES
-   ('D','P','family_book',Family','B','K','W','7','9','d@pn.com');
+   ('D','P','family_book','Family','B','K','W','7','9','d@pn.com');
+
    
 INSERT INTO address_book (first_name, last_name, address_book_name, type, address, city, state, zip, phone_number, email) VALUES
    ('D','P','friend_book','Friend','B','K','W','7','9','d@pn.com');
@@ -89,7 +89,7 @@ INSERT INTO address_book_records (address_book_name,type) VALUES
    ('office_book','Office');
 
 ALTER TABLE address_book ADD person_id INT NOT NULL AFTER id;
-UPDATE TABLE address_book SET person_id=ID+1000;
+UPDATE address_book SET person_id=id+1000;
 DELETE FROM address_book WHERE id = 1008;
 ALTER TABLE address_book DROP id;
 ALTER TABLE address_book ADD PRIMARY KEY (person_id);
@@ -117,4 +117,10 @@ CREATE TABLE contact (
 INSERT INTO contact (person_id,phone_number,email)
    SELECT person_id,phone_number,email FROM address_book;
 
-ALTER TABLE address_book DROP type,address,city,state,zip,phone_number,email;
+ALTER TABLE address_book DROP type;
+ALTER TABLE address_book DROP address;
+ALTER TABLE address_book DROP city;
+ALTER TABLE address_book DROP state;
+ALTER TABLE address_book DROP zip;
+ALTER TABLE address_book DROP phone_number;
+ALTER TABLE address_book DROP email;
